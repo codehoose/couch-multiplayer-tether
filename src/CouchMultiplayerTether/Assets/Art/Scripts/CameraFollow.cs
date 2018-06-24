@@ -8,12 +8,17 @@ public class CameraFollow : MonoBehaviour
 
     float speed = 10f;
 
+    public float minSize = 5;
+    public float maxSize = 20;
+
+    public Tether tether;
+
 	// Use this for initialization
 	void Awake ()
     {
         _cam = GetComponent<Camera>();
 	}
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -33,6 +38,8 @@ public class CameraFollow : MonoBehaviour
 
         tmp.y = _cam.transform.position.y;
         tmp.z = _cam.transform.position.z;
+
+        _cam.orthographicSize = Mathf.Lerp(minSize, maxSize, tether.Distance);
 
         _cam.transform.position = Vector3.Lerp(_cam.transform.position, 
                                                tmp, 
